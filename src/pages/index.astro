@@ -1,11 +1,36 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const wisdomEntries = await getCollection('wisdom');
 ---
 
-<Layout>
-	<Welcome />
-</Layout>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calendar of Wisdom</title>
+</head>
+<body>
+  <h1>Calendar of Wisdom</h1>
+  
+  <!-- Date Picker -->
+  <input type="date" id="datePicker">
+
+  <!-- Month List -->
+  <ul>
+    {Array.from({ length: 12 }, (_, i) => (
+      <li><a href={`/${String(i + 1).padStart(2, '0')}`}>Month {i + 1}</a></li>
+    ))}
+  </ul>
+
+  <script>
+    document.getElementById('datePicker').addEventListener('change', function() {
+      const date = new Date(this.value);
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const day = String(date.getDate()).padStart(2, '0');
+      window.location.href = `/${month}-${day}`;
+    });
+  </script>
+</body>
+</html>

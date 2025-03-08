@@ -1,0 +1,21 @@
+---
+import { getCollection } from 'astro:content';
+
+const params = Astro.params;
+const wisdomEntries = await getCollection('wisdom');
+const wisdom = wisdomEntries.find(entry => entry.slug === params.date);
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{wisdom?.data.title || "Not Found"}</title>
+</head>
+<body>
+  <h1>{wisdom?.data.title || "No Wisdom for Today"}</h1>
+  <p>{wisdom?.body || "No entry for this date."}</p>
+  <a href="/">Back to Calendar</a>
+</body>
+</html>
