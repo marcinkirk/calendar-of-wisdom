@@ -1,2 +1,4 @@
-# calendar-of-wisdom
+
+# Calendar of Wisdom
 Calendar of wisdom
+
